@@ -2,6 +2,7 @@
 const fs = require('fs')
 
 const readFilePromise = (pathToFile, encoding = 'utf-8') => {
+    console.log()
     return new Promise((resolve, reject) => {
         fs.readFile(pathToFile, encoding, (errRead, contentOfFile) => {
             if (errRead) {
@@ -22,18 +23,36 @@ const writeFilePromise = (pathToFile, content) => {
         })
     })
 }
-const orignFilePath = './index.js'
+const origFilePath = './index.js'
 const newFilePath = './index_copy.js'
 
-readFilePromise(orignFilePath)
-    .then((data) => {
-        const newContent = data + data
-        return writeFilePromise(newFilePath, newContent)
-    })
-    .then((dataFromPrevThen)=>console.log({dataFromPrevThen}))
-    // .catch((e)=>{
-    //     console.log(e)
-    // })
-    .catch(console.log())
+// readFilePromise(orignFilePath)
+//     .then((data) => {
+//         const newContent = data + data
+//         return writeFilePromise(newFilePath, newContent)
+//     })
+//     .then((dataFromPrevThen) => console.log({ dataFromPrevThen }))
+//     // .catch((e)=>{
+//     //     console.log(e)
+//     // })
+//     .catch(console.log())
 
-    2
+
+
+
+console.log(1);
+const main = async () => {
+    console.log(2)
+    try {
+        const contentOfFile = await readFilePromise(origFilePath)
+        const newContent = contentOfFile + contentOfFile
+        const result = await writeFilePromise(newFilePath, newContent)
+        console.log({ result })
+        return 1000
+    } catch (error) {
+        console.log({ error });
+    }
+
+}
+main().then(console.log)
+console.log(3)
